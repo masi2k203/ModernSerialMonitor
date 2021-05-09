@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.2.5" />
+    <PackageReference Include="ModernWpf.MessageBox" Version="0.5.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="ReactiveProperty.WPF" Version="7.10.0" />
   </ItemGroup>

@@ -9,7 +9,39 @@
     Title="シリアルモニタ"
     Width="800"
     Height="450"
+    ui:ThemeManager.RequestedTheme="Light"
+    ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
-    <Grid />
+
+    <ui:NavigationView
+        x:Name="NavView"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        IsTitleBarAutoPaddingEnabled="True"
+        PaneDisplayMode="Auto"
+        PaneTitle=""
+        SelectionChanged="NavView_SelectionChanged">
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItemHeader Content="基本機能" />
+            <ui:NavigationViewItem
+                Content="シリアルモニタ"
+                IsSelected="True"
+                Tag="{x:Static local:NavIcon.Monitor}">
+                <ui:NavigationViewItem.Icon>
+                    <ui:FontIcon Glyph="&#xE7FD;" />
+                </ui:NavigationViewItem.Icon>
+            </ui:NavigationViewItem>
+        </ui:NavigationView.MenuItems>
+        <ui:NavigationView.FooterMenuItems>
+            <ui:NavigationViewItem
+                Content="設定"
+                Icon="Setting"
+                Tag="{x:Static local:NavIcon.Setting}" />
+        </ui:NavigationView.FooterMenuItems>
+
+        <ScrollViewer Margin="0,0,0,12">
+            <ui:Frame x:Name="ContentFrame" Padding="8,0,12,12" />
+        </ScrollViewer>
+    </ui:NavigationView>
 </Window>
