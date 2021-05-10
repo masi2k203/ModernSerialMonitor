@@ -11,10 +11,7 @@
     <PackageReference Include="ModernWpf.MessageBox" Version="0.5.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="ReactiveProperty.WPF" Version="7.10.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="System.IO.Ports" Version="5.0.1" />
   </ItemGroup>
 
 </Project>
