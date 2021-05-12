@@ -34,7 +34,10 @@
                 <WrapPanel>
                     <StackPanel>
                         <Label Content="ポート" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                        <ComboBox Width="100" Margin="5,0,15,10" />
+                        <ComboBox
+                            Width="100"
+                            Margin="5,0,15,10"
+                            ItemsSource="{Binding COMDeviceNameList}" />
                     </StackPanel>
                     <StackPanel>
                         <Label Content="ボーレート" Style="{StaticResource UnifiedSubHeaderStyle}" />

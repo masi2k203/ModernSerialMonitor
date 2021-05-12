@@ -12,6 +12,7 @@
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="ReactiveProperty.WPF" Version="7.10.0" />
     <PackageReference Include="System.IO.Ports" Version="5.0.1" />
+    <PackageReference Include="System.Management" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
