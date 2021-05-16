@@ -31,20 +31,25 @@
                 HorizontalAlignment="Left"
                 WindowChrome.IsHitTestVisibleInChrome="True">
                 <MenuItem Header="ファイル(_F)">
-                    <MenuItem Header="アイテム1" />
-                    <MenuItem Header="アイテム2" />
-                    <MenuItem Header="アイテム3" />
+                    <MenuItem Header="終了(_X)" />
                 </MenuItem>
-                <MenuItem Header="表示(_V)" />
-                <MenuItem Header="ツール(_T)" />
-                <MenuItem Header="ヘルプ(_H)" />
+                <MenuItem Header="表示(_V)">
+                    <MenuItem Header="最上面に固定する" IsCheckable="True" />
+                </MenuItem>
+                <MenuItem Header="ヘルプ(_H)">
+                    <MenuItem Header="バージョン情報(_A)" />
+                    <MenuItem Header="ライセンス情報(_L)" />
+                    <Separator />
+                    <MenuItem Header="製作者Twitter(_T)" />
+                </MenuItem>
             </Menu>
             <!--  タイトル  -->
             <TextBlock
                 Grid.Column="1"
                 Margin="10,0,0,0"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="シリアルモニタ (未接続)" />
+                Text="シリアルモニタ" />
         </Grid>
 
         <!--  ナビゲーションビューおよびフレーム  -->
