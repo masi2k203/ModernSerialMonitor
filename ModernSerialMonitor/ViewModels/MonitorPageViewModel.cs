@@ -31,17 +31,7 @@ namespace ModernSerialMonitor.ViewModels
         /// </summary>
         public MonitorPageViewModel()
         {
-            using (System.IO.Ports.SerialPort port = new())
-            {
-                foreach (var item in System.IO.Ports.SerialPort.GetPortNames())
-                {
-                    COMPortList.Add(item);
-                }
-                foreach (var item in port.GetDeviceNames())
-                {
-                    COMDeviceNameList.Add(item);
-                }
-            }
+
         }
     }
 }

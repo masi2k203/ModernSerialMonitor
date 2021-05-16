@@ -14,34 +14,72 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
 
-    <ui:NavigationView
-        x:Name="NavView"
-        IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="False"
-        IsTitleBarAutoPaddingEnabled="True"
-        PaneDisplayMode="Auto"
-        PaneTitle=""
-        SelectionChanged="NavView_SelectionChanged">
-        <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItemHeader Content="基本機能" />
-            <ui:NavigationViewItem
-                Content="シリアルモニタ"
-                IsSelected="True"
-                Tag="{x:Static local:NavIcon.Monitor}">
-                <ui:NavigationViewItem.Icon>
-                    <ui:FontIcon Glyph="&#xE7FD;" />
-                </ui:NavigationViewItem.Icon>
-            </ui:NavigationViewItem>
-        </ui:NavigationView.MenuItems>
-        <ui:NavigationView.FooterMenuItems>
-            <ui:NavigationViewItem
-                Content="設定"
-                Icon="Setting"
-                Tag="{x:Static local:NavIcon.Setting}" />
-        </ui:NavigationView.FooterMenuItems>
+    <DockPanel LastChildFill="True">
+        <!--  カスタムタイトルバー  -->
+        <Grid
+            x:Name="AppTitleBar"
+            Background="#F2F2F2"
+            DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!--  メニュー(ウィンドウ判定無し)  -->
+            <Menu
+                Grid.Column="0"
+                HorizontalAlignment="Left"
+                WindowChrome.IsHitTestVisibleInChrome="True">
+                <MenuItem Header="ファイル(_F)">
+                    <MenuItem Header="アイテム1" />
+                    <MenuItem Header="アイテム2" />
+                    <MenuItem Header="アイテム3" />
+                </MenuItem>
+                <MenuItem Header="表示(_V)" />
+                <MenuItem Header="ツール(_T)" />
+                <MenuItem Header="ヘルプ(_H)" />
+            </Menu>
+            <!--  タイトル  -->
+            <TextBlock
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="シリアルモニタ (未接続)" />
+        </Grid>
 
-        <ScrollViewer Margin="0,0,0,12">
-            <ui:Frame x:Name="ContentFrame" Padding="8,0,12,12" />
-        </ScrollViewer>
-    </ui:NavigationView>
+
+        <Grid DockPanel.Dock="Bottom">
+            <!--  ナビゲーションビュー  -->
+            <ui:NavigationView
+                x:Name="NavView"
+                IsBackButtonVisible="Collapsed"
+                IsSettingsVisible="False"
+                IsTitleBarAutoPaddingEnabled="True"
+                PaneDisplayMode="Top"
+                SelectionChanged="NavView_SelectionChanged">
+                <ui:NavigationView.MenuItems>
+                    <ui:NavigationViewItem
+                        Content="シリアルモニタ"
+                        IsSelected="True"
+                        Tag="{x:Static local:NavIcon.Monitor}">
+                        <ui:NavigationViewItem.Icon>
+                            <ui:FontIcon Glyph="&#xE7FD;" />
+                        </ui:NavigationViewItem.Icon>
+                    </ui:NavigationViewItem>
+                </ui:NavigationView.MenuItems>
+                <ui:NavigationView.FooterMenuItems>
+                    <ui:NavigationViewItem
+                        Content="設定"
+                        Icon="Setting"
+                        Tag="{x:Static local:NavIcon.Setting}" />
+                </ui:NavigationView.FooterMenuItems>
+
+                <ScrollViewer Margin="0,0,0,12">
+                    <ui:Frame x:Name="ContentFrame" Padding="8,0,12,12" />
+                </ScrollViewer>
+            </ui:NavigationView>
+        </Grid>
+
+
+    </DockPanel>
 </Window>

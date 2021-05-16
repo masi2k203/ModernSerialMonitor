@@ -41,6 +41,7 @@ namespace ModernSerialMonitor.Views
         public MainShellView()
         {
             InitializeComponent();
+
         }
 
         private void NavView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -54,8 +55,6 @@ namespace ModernSerialMonitor.Views
 
                 if (Enum.TryParse(iconName, out NavIcon icon))
                 {
-                    // ヘッダ設定
-                    sender.Header = _headers[icon];
                     // ナビゲーション
                     ContentFrame.Navigate(_pages[icon]);
                 }
