@@ -18,6 +18,7 @@ namespace ModernSerialMonitor.Views
     public enum NavIcon
     {
         Monitor,
+        AdvancedMonitor,
         Setting
     }
 
@@ -29,12 +30,14 @@ namespace ModernSerialMonitor.Views
         private static IReadOnlyDictionary<NavIcon, Type> _pages = new Dictionary<NavIcon, Type>()
         {
             {NavIcon.Monitor, typeof(ModernSerialMonitor.Views.Pages.MonitorPageView) },
+            {NavIcon.AdvancedMonitor, typeof(ModernSerialMonitor.Views.Pages.AdvancedMonitorPageView) },
             {NavIcon.Setting, typeof(ModernSerialMonitor.Views.Pages.SettingPageView) }
         };
 
         private static IReadOnlyDictionary<NavIcon, string> _headers = new Dictionary<NavIcon, string>()
         {
             {NavIcon.Monitor, "シリアルモニタ" },
+            {NavIcon.AdvancedMonitor, "高機能シリアルモニタ" },
             {NavIcon.Setting, "設定" }
         };
 

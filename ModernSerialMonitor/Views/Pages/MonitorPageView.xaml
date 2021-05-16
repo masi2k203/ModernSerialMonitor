@@ -8,6 +8,7 @@
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="clr-namespace:ModernSerialMonitor.ViewModels"
     Title="MonitorPageView"
+    Margin="0,0,0,0"
     d:DesignHeight="800"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -15,91 +16,99 @@
         <vm:MonitorPageViewModel />
     </Page.DataContext>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*" />
-            <ColumnDefinition Width="3*" MaxWidth="250" />
-        </Grid.ColumnDefinitions>
-
-        <Grid Grid.Column="0" Margin="0,0,100,0">
+    <DockPanel Background="#F2F2F2" LastChildFill="True">
+        <!--  コマンドバー  -->
+        <ui:CommandBar
+            HorizontalAlignment="Left"
+            Background="#F2F2F2"
+            DockPanel.Dock="Top">
+            <ui:CommandBar.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="接続先" />
+                    <ComboBox
+                        Width="110"
+                        Height="30"
+                        Margin="5" />
+                    <ui:AppBarSeparator />
+                    <TextBlock
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="ボーレート" />
+                    <ComboBox
+                        Width="110"
+                        Height="30"
+                        Margin="5" />
+                    <TextBlock
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        Text="終端文字" />
+                    <ComboBox
+                        Width="110"
+                        Height="30"
+                        Margin="5" />
+                </StackPanel>
+            </ui:CommandBar.Content>
+            <ui:AppBarSeparator />
+            <ui:AppBarButton Icon="Play" Label="接続" />
+            <ui:AppBarButton Icon="Stop" Label="切断" />
+            <ui:AppBarSeparator />
+            <ui:AppBarButton Icon="Sync" Label="初期状態に戻す" />
+        </ui:CommandBar>
+        <!--  シリアルモニタ部分  -->
+        <Grid Background="White" DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <!--  ポート設定  -->
-            <StackPanel Grid.Row="0" Margin="0,0,0,30">
-                <Label Content="シリアルポート設定" Style="{StaticResource UnifiedHeaderStyle}" />
-                <WrapPanel>
-                    <StackPanel>
-                        <Label Content="ポート" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                        <ComboBox
-                            Width="100"
-                            Margin="5,0,15,10"
-                            ItemsSource="{Binding COMDeviceNameList}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <Label Content="ボーレート" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                        <ComboBox Width="100" Margin="5,0,10,10" />
-                    </StackPanel>
-                    <StackPanel>
-                        <Label Content="データ末尾" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                        <ComboBox Width="100" Margin="5,0,10,10" />
-                    </StackPanel>
-                </WrapPanel>
-
-                <Label Content="未接続" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                <StackPanel Orientation="Horizontal">
-                    <Button
-                        Width="80"
-                        Margin="5,10,0,10"
-                        Content="接続" />
-                    <Button
-                        Width="80"
-                        Margin="5,10,0,10"
-                        Content="切断" />
-                </StackPanel>
-            </StackPanel>
-
-            <!--  送信設定  -->
-            <StackPanel Grid.Row="1" Margin="0,0,0,30">
-                <Label Content="送信" Style="{StaticResource UnifiedHeaderStyle}" />
-                <Label Content="送信するデータ" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                <TextBox Margin="5,10,0,10" />
+            <!--  送信パネル  -->
+            <DockPanel
+                Grid.Row="0"
+                Margin="5,5,5,10"
+                LastChildFill="True">
+                <TextBlock
+                    Margin="0,0,0,10"
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="送信データ" />
                 <Button
-                    Width="80"
-                    Margin="5,10,0,10"
-                    Content="送信" />
-            </StackPanel>
-
-            <!--  受信設定  -->
-            <DockPanel Grid.Row="2" LastChildFill="True">
-                <StackPanel DockPanel.Dock="Top">
-                    <Label Content="受信" Style="{StaticResource UnifiedHeaderStyle}" />
-                    <Label Content="受信したデータ" Style="{StaticResource UnifiedSubHeaderStyle}" />
-                </StackPanel>
-                <Grid DockPanel.Dock="Bottom">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBox
-                        Grid.Row="0"
-                        Margin="5,10,0,10"
-                        IsReadOnly="True" />
-                    <Button
-                        Grid.Row="1"
-                        Width="80"
-                        Margin="5,10,0,10"
-                        Content="履歴消去" />
-                </Grid>
+                    Margin="10,0,5,0"
+                    Content="送信"
+                    DockPanel.Dock="Right" />
+                <TextBox DockPanel.Dock="Left" />
             </DockPanel>
-        </Grid>
 
-        <StackPanel Grid.Column="1">
-            <Label Content="ヘルプ" Style="{StaticResource UnifiedHelpHeaderStyle}" />
-            <TextBlock Style="{StaticResource UnifiedHelpTextStyle}" Text="ヘルプヘルプヘルプいろいろ..." />
-        </StackPanel>
-    </Grid>
+            <!--  ボーダー  -->
+            <Border
+                Grid.Row="1"
+                Height="2"
+                Background="#F2F2F2" />
+
+            <!--  受信パネル  -->
+            <DockPanel
+                Grid.Row="2"
+                Margin="5,5,5,10"
+                LastChildFill="True">
+                <TextBlock
+                    Margin="0,0,0,10"
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="受信データ" />
+                <Button
+                    Margin="0,10,5,0"
+                    HorizontalAlignment="Right"
+                    Content="履歴をクリア"
+                    DockPanel.Dock="Bottom" />
+                <TextBox
+                    AcceptsReturn="True"
+                    DockPanel.Dock="Left"
+                    IsReadOnly="True" />
+            </DockPanel>
+
+        </Grid>
+    </DockPanel>
 </Page>
