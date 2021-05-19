@@ -9,63 +9,36 @@ using System.Management;
 
 namespace ModernSerialMonitor.Models
 {
-    class SerialManager
+    public static class SerialManager
     {
-        public SerialManager()
+        public class TerminatedCharacter
         {
-            
+            public string Description { get; set; }
+            public string Terminated { get; set; }
         }
-    }
 
-    public static class SerialPortExtensions
-    {
         /// <summary>
-        /// シリアルポートに接続されたデバイスの名称を取得する
-        /// 参考実装："http://truthfullscore.hatenablog.com/entry/2014/01/10/180608"
+        /// 接続可能ポートリスト
         /// </summary>
-        /// <param name="port"></param>
-        /// <returns></returns>
-        public static string[] GetDeviceNames(this SerialPort port)
+        public static string[] PortList = SerialPort.GetPortNames();
+
+        /// <summary>
+        /// テンプレートボーレートリスト
+        /// </summary>
+        public static int[] BaudRateList = new int[]
         {
-            var deviceNameList = new System.Collections.ArrayList();
-            var check = new System.Text.RegularExpressions.Regex("(COM[1-9][0-9]?[0-9]?)");
+            110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200
+        };
 
-            ManagementClass mcPnPEntity = new ManagementClass("Win32_PnPEntity");
-            ManagementObjectCollection manageObjCol = mcPnPEntity.GetInstances();
-
-            //全てのPnPデバイスを探索しシリアル通信が行われるデバイスを随時追加する
-            foreach (ManagementObject manageObj in manageObjCol)
-            {
-                //Nameプロパティを取得
-                var namePropertyValue = manageObj.GetPropertyValue("Name");
-                if (namePropertyValue == null)
-                {
-                    continue;
-                }
-
-                //Nameプロパティ文字列の一部が"(COM1)～(COM999)"と一致するときリストに追加"
-                string name = namePropertyValue.ToString();
-                if (check.IsMatch(name))
-                {
-                    deviceNameList.Add(name);
-                }
-            }
-
-            //戻り値作成
-            if (deviceNameList.Count > 0)
-            {
-                string[] deviceNames = new string[deviceNameList.Count];
-                int index = 0;
-                foreach (var name in deviceNameList)
-                {
-                    deviceNames[index++] = name.ToString();
-                }
-                return deviceNames;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        /// <summary>
+        /// 終端文字テンプレートリスト
+        /// </summary>
+        public static List<TerminatedCharacter> TerminatedCharactersList = new()
+        {
+            new TerminatedCharacter { Description = "なし", Terminated = "" },
+            new TerminatedCharacter { Description = "CRのみ", Terminated = "\r" },
+            new TerminatedCharacter { Description = "LFのみ", Terminated = "\n" },
+            new TerminatedCharacter { Description = "CRおよびLF", Terminated = "\r\n" }
+        };
     }
 }

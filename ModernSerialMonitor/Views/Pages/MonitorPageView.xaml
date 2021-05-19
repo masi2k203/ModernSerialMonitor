@@ -16,14 +16,11 @@
         <vm:MonitorPageViewModel />
     </Page.DataContext>
 
-    <DockPanel Background="#F2F2F2" LastChildFill="True">
+    <DockPanel LastChildFill="True">
         <!--  コマンドバー  -->
-        <ui:CommandBar
-            HorizontalAlignment="Left"
-            Background="#F2F2F2"
-            DockPanel.Dock="Top">
+        <ui:CommandBar Background="Transparent" DockPanel.Dock="Top">
             <ui:CommandBar.Content>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Width="Auto" Orientation="Horizontal">
                     <TextBlock
                         Margin="10,0,10,0"
                         VerticalAlignment="Center"
@@ -31,7 +28,10 @@
                     <ComboBox
                         Width="110"
                         Height="30"
-                        Margin="5" />
+                        Margin="5"
+                        IsEnabled="{Binding IsConnectButtonActive.Value}"
+                        ItemsSource="{Binding COMPortList}"
+                        SelectedValue="{Binding SelectedCOMPortName.Value, UpdateSourceTrigger=PropertyChanged}" />
                     <ui:AppBarSeparator />
                     <TextBlock
                         Margin="10,0,10,0"
@@ -40,7 +40,10 @@
                     <ComboBox
                         Width="110"
                         Height="30"
-                        Margin="5" />
+                        Margin="5"
+                        IsEnabled="{Binding IsConnectButtonActive.Value}"
+                        ItemsSource="{Binding BaudRateList}"
+                        SelectedValue="{Binding SelectedBaudRate.Value, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock
                         Margin="10,0,10,0"
                         VerticalAlignment="Center"
@@ -48,21 +51,39 @@
                     <ComboBox
                         Width="110"
                         Height="30"
-                        Margin="5" />
+                        Margin="5"
+                        IsEnabled="{Binding IsConnectButtonActive.Value}"
+                        ItemsSource="{Binding TerminatedCharactersList}"
+                        SelectedValue="{Binding SelectedTerminatedCharacter.Value, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
             </ui:CommandBar.Content>
             <ui:AppBarSeparator />
-            <ui:AppBarButton Icon="Play" Label="接続" />
-            <ui:AppBarButton Icon="Stop" Label="切断" />
+            <ui:AppBarButton
+                Command="{Binding ConnectCommand}"
+                Icon="Play"
+                IsEnabled="{Binding IsConnectButtonActive.Value}"
+                Label="接続" />
+            <ui:AppBarButton
+                Command="{Binding DisconnectCommand}"
+                Icon="Stop"
+                IsEnabled="{Binding IsDisconnectButtonActive.Value}"
+                Label="切断" />
             <ui:AppBarSeparator />
             <ui:AppBarButton Icon="Sync" Label="初期状態に戻す" />
         </ui:CommandBar>
         <!--  シリアルモニタ部分  -->
-        <Grid Background="White" DockPanel.Dock="Bottom">
+        <Grid DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!--  送信パネル  -->
@@ -77,16 +98,12 @@
                     Text="送信データ" />
                 <Button
                     Margin="10,0,5,0"
+                    Command="{Binding SendCommand}"
                     Content="送信"
-                    DockPanel.Dock="Right" />
-                <TextBox DockPanel.Dock="Left" />
+                    DockPanel.Dock="Right"
+                    IsEnabled="{Binding IsDisconnectButtonActive.Value}" />
+                <TextBox DockPanel.Dock="Left" Text="{Binding SendTextProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
             </DockPanel>
-
-            <!--  ボーダー  -->
-            <Border
-                Grid.Row="1"
-                Height="2"
-                Background="#F2F2F2" />
 
             <!--  受信パネル  -->
             <DockPanel
@@ -101,13 +118,28 @@
                 <Button
                     Margin="0,10,5,0"
                     HorizontalAlignment="Right"
+                    Command="{Binding DeleteResultCommand}"
                     Content="履歴をクリア"
                     DockPanel.Dock="Bottom" />
                 <TextBox
                     AcceptsReturn="True"
                     DockPanel.Dock="Left"
-                    IsReadOnly="True" />
+                    IsReadOnly="True"
+                    Text="{Binding ReceiveTextProperty.Value, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalScrollBarVisibility="Visible" />
             </DockPanel>
+
+            <!--  ステータスバー  -->
+            <StatusBar
+                Grid.Row="3"
+                Height="25"
+                VerticalAlignment="Center"
+                Background="{Binding StatusBarBackgroundProperty.Value, UpdateSourceTrigger=PropertyChanged}"
+                Foreground="White">
+                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                    <TextBlock Text="{Binding StatusBarMessageProperty.Value}" />
+                </StackPanel>
+            </StatusBar>
 
         </Grid>
     </DockPanel>
