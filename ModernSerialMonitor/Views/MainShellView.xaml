@@ -48,10 +48,9 @@
                         IsChecked="{Binding IsTopmostProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
                 </MenuItem>
                 <MenuItem Header="ヘルプ(_H)">
-                    <MenuItem Header="バージョン情報(_A)" />
-                    <MenuItem Header="ライセンス情報(_L)" />
+                    <MenuItem Command="{Binding ShowVersionDialogCommand}" Header="バージョン情報(_A)" />
                     <Separator />
-                    <MenuItem Header="製作者Twitter(_T)" />
+                    <MenuItem Command="{Binding ShowProducerTwitterCommand}" Header="製作者Twitter(_T)" />
                 </MenuItem>
             </Menu>
             <!--  タイトル  -->
@@ -98,6 +97,11 @@
                     </ui:NavigationViewItem>
                 </ui:NavigationView.MenuItems>
                 <ui:NavigationView.FooterMenuItems>
+                    <ui:NavigationViewItem Content="アプリ情報" Tag="{x:Static local:NavIcon.AppInfo}">
+                        <ui:NavigationViewItem.Icon>
+                            <ui:FontIcon Glyph="&#xE946;" />
+                        </ui:NavigationViewItem.Icon>
+                    </ui:NavigationViewItem>
                     <ui:NavigationViewItem
                         Content="設定"
                         Icon="Setting"

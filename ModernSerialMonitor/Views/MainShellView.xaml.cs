@@ -19,6 +19,7 @@ namespace ModernSerialMonitor.Views
     {
         Monitor,
         AdvancedMonitor,
+        AppInfo,
         Setting
     }
 
@@ -31,6 +32,7 @@ namespace ModernSerialMonitor.Views
         {
             {NavIcon.Monitor, typeof(ModernSerialMonitor.Views.Pages.MonitorPageView) },
             {NavIcon.AdvancedMonitor, typeof(ModernSerialMonitor.Views.Pages.AdvancedMonitorPageView) },
+            {NavIcon.AppInfo, typeof(ModernSerialMonitor.Views.Pages.AppInfoPageView) },
             {NavIcon.Setting, typeof(ModernSerialMonitor.Views.Pages.SettingPageView) }
         };
 
