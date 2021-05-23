@@ -115,6 +115,7 @@ namespace ModernSerialMonitor.ViewModels
         /// [履歴をクリア]ボタンコマンド
         /// </summary>
         public ReactiveCommand DeleteResultCommand { get; } = new();
+
         #endregion
 
         /// <summary>

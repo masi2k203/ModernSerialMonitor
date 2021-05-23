@@ -47,7 +47,7 @@
                     <TextBlock
                         Margin="10,0,10,0"
                         VerticalAlignment="Center"
-                        Text="終端文字" />
+                        Text="送信終端文字" />
                     <ComboBox
                         Width="110"
                         Height="30"
@@ -74,8 +74,7 @@
                 Icon="Stop"
                 IsEnabled="{Binding IsDisconnectButtonActive.Value}"
                 Label="切断" />
-            <ui:AppBarSeparator />
-            <ui:AppBarButton Icon="Sync" Label="初期状態に戻す" />
+
         </ui:CommandBar>
         <!--  シリアルモニタ部分  -->
         <Grid DockPanel.Dock="Bottom">
