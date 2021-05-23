@@ -8,6 +8,7 @@ using Reactive.Bindings;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using ModernWpf;
 
 namespace ModernSerialMonitor.ViewModels
 {
@@ -26,6 +27,12 @@ namespace ModernSerialMonitor.ViewModels
         /// 製品プロパティ管理
         /// </summary>
         public ReactiveProperty<string> InformationlVersionProperty { get; } = new();
+
+        /// <summary>
+        /// アプリケーションテーマ情報管理
+        /// </summary>
+        public ReactiveProperty<ElementTheme> AppThemeProperty { get; } = new();
+
         #endregion
 
         #region コマンド
@@ -54,7 +61,15 @@ namespace ModernSerialMonitor.ViewModels
             // コマンドの購読
             ShowVersionDialogCommand.Subscribe(_ => ShowVersionDialog());
             ShowProducerTwitterCommand.Subscribe(_ => ShowProducerTwitterPage());
+
+            // 設定値変更のイベントを購読
+            Properties.Settings.Default.PropertyChanged += Default_PropertyChanged;
+
+            // テーマを適用
+            AppThemeProperty.Value = GetAppTheme();
         }
+
+        
 
 
         #region メソッド
@@ -87,6 +102,37 @@ namespace ModernSerialMonitor.ViewModels
             }
         }
 
+        /// <summary>
+        /// 現在のアプリテーマを取得する
+        /// </summary>
+        /// <returns></returns>
+        private ElementTheme GetAppTheme()
+        {
+            if (Properties.Settings.Default.IsThemeAutoSet == true)
+            {
+                return ElementTheme.Default;
+            }
+            if (Properties.Settings.Default.IsLightTheme == true)
+            {
+                return ElementTheme.Light;
+            }
+            if (Properties.Settings.Default.IsDarkTheme == true)
+            {
+                return ElementTheme.Dark;
+            }
+            return ElementTheme.Default;
+        }
+
+        /// <summary>
+        /// Property.Setting.Default以下が変更された際の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            AppThemeProperty.Value = GetAppTheme();
+            Properties.Settings.Default.Save();
+        }
         #endregion
     }
 }
