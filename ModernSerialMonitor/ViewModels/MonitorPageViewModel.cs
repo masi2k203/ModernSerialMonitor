@@ -28,6 +28,11 @@ namespace ModernSerialMonitor.ViewModels
             { "Connected", new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CA5100")) }
         };
 
+        /// <summary>
+        /// シリアル通信用オブジェクト
+        /// </summary>
+        private MonoSerialObject SerialObject = MonoSerialObject.GetInstance;
+
         #endregion
 
         #region プロパティ
@@ -81,17 +86,17 @@ namespace ModernSerialMonitor.ViewModels
         /// <summary>
         /// 受信データ管理
         /// </summary>
-        public ReactiveProperty<string> ReceiveTextProperty { get; } = new();
+        public ReactiveProperty<string> ReceiveTextProperty { get; } = null;
 
         /// <summary>
         /// ステータスバー背景色管理
         /// </summary>
-        public ReactiveProperty<SolidColorBrush> StatusBarBackgroundProperty { get; } = new();
+        public ReactiveProperty<SolidColorBrush> StatusBarBackgroundProperty { get; } = null;
 
         /// <summary>
         /// ステータスバーメッセージ管理
         /// </summary>
-        public ReactiveProperty<string> StatusBarMessageProperty { get; } = new();
+        public ReactiveProperty<string> StatusBarMessageProperty { get; } = null;
         #endregion
 
         #region コマンド
@@ -141,9 +146,14 @@ namespace ModernSerialMonitor.ViewModels
             DisconnectCommand.Subscribe(_ => DisconnectSerialPort());
             DeleteResultCommand.Subscribe(_ => DeleteResult());
 
-            // ステータスバー背景色設定
-            StatusBarBackgroundProperty.Value = StatusBarColors["Normal"];
-            StatusBarMessageProperty.Value = "準備完了";
+            // 通知可能プロパティの結びつけ
+            ReceiveTextProperty = SerialObject.ReceivedDataProperty;
+            StatusBarBackgroundProperty = SerialObject.StatusBarBackgroundProperty;
+            StatusBarMessageProperty = SerialObject.StatusInfomationTextProperty;
+
+            // 活性管理
+            IsConnectButtonActive.Value = !SerialObject.IsConnected.Value;
+            IsDisconnectButtonActive.Value = SerialObject.IsConnected.Value;
         }
 
 
@@ -154,29 +164,11 @@ namespace ModernSerialMonitor.ViewModels
         /// </summary>
         private void ConnectSerialPort()
         {
-            try
-            {
-                if (_port == null)
-                {
-                    // シリアルポート初期化
-                    _port = new SerialPort(SelectedCOMPortName.Value, SelectedBaudRate.Value);
-
-                    // イベント登録
-                    _port.DataReceived += SerialDataReceived;
-                    
-                    // ポート開放
-                    _port.Open();
-                    IsConnectButtonActive.Value = false;
-                    IsDisconnectButtonActive.Value = true;
-                    StatusBarBackgroundProperty.Value = StatusBarColors["Connected"];
-                    StatusBarMessageProperty.Value = "ポート：" + _port.PortName + "に接続中";
-                }
-            }
-            catch (Exception ex)
-            {
-                StatusBarMessageProperty.Value = ex.Message;
-                StatusBarBackgroundProperty.Value = StatusBarColors["Normal"];
-            }
+            SerialObject.PortName = SelectedCOMPortName.Value;
+            SerialObject.BaudRate = SelectedBaudRate.Value;
+            SerialObject.ConnectSerialPort();
+            IsConnectButtonActive.Value = !SerialObject.IsConnected.Value;
+            IsDisconnectButtonActive.Value = SerialObject.IsConnected.Value;
         }
 
         /// <summary>
@@ -187,17 +179,9 @@ namespace ModernSerialMonitor.ViewModels
             string termStr = SelectedTerminatedCharacter.Value.Terminated;
             string sendText = SendTextProperty.Value + termStr;
 
-            try
-            {
-                if ((_port != null) && (_port.IsOpen))
-                {
-                    _port.Write(sendText);
-                }
-            }
-            catch (Exception ex)
-            {
-                StatusBarMessageProperty.Value = ex.Message;
-            }
+            SerialObject.SendData = sendText;
+
+            SerialObject.SendSerialData();
         }
 
         /// <summary>
@@ -205,51 +189,9 @@ namespace ModernSerialMonitor.ViewModels
         /// </summary>
         private void DisconnectSerialPort()
         {
-            try
-            {
-                if ((_port != null) && (_port.IsOpen))
-                {
-                    _port.Close();
-                    _port.Dispose();
-                    _port = null;
-
-                    IsConnectButtonActive.Value = true;
-                    IsDisconnectButtonActive.Value = false;
-
-                    StatusBarBackgroundProperty.Value = StatusBarColors["Normal"];
-                    StatusBarMessageProperty.Value = "切断済み";
-                }
-            }
-            catch (Exception ex)
-            {
-                StatusBarMessageProperty.Value = ex.Message;
-                StatusBarBackgroundProperty.Value = StatusBarColors["Normal"];
-            }
-            
-        }
-
-        /// <summary>
-        /// 受信時処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SerialDataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            string buffer = string.Empty;
-
-            if (_port.IsOpen == false)
-            {
-                return;
-            }
-
-            try
-            {
-                ReceiveTextProperty.Value += _port.ReadExisting();
-            }
-            catch(Exception ex)
-            {
-                StatusBarMessageProperty.Value = ex.Message;
-            }
+            SerialObject.DisconnectSerialPort();
+            IsConnectButtonActive.Value = !SerialObject.IsConnected.Value;
+            IsDisconnectButtonActive.Value = SerialObject.IsConnected.Value;
         }
 
         /// <summary>
