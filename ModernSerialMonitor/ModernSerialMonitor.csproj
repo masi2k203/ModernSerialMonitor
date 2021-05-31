@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <Deterministic>false</Deterministic>
     <FileVersion>1.0.0.*</FileVersion>
-    <InformationalVersion>1.0.0</InformationalVersion>
+    <InformationalVersion>1.0.1</InformationalVersion>
     <NoWarn>CS7035;7035</NoWarn>
   </PropertyGroup>
 
