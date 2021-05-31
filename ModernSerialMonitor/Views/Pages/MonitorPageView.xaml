@@ -74,8 +74,6 @@
                 Icon="Stop"
                 IsEnabled="{Binding IsDisconnectButtonActive.Value}"
                 Label="切断" />
-            <ui:AppBarSeparator />
-            <ui:AppBarButton Icon="Sync" Label="初期状態に戻す" />
         </ui:CommandBar>
         <!--  シリアルモニタ部分  -->
         <Grid DockPanel.Dock="Bottom">
