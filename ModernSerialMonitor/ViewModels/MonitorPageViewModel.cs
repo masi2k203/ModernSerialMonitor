@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Media;
 using Reactive.Bindings;
 using ModernSerialMonitor.Models;
@@ -120,6 +121,11 @@ namespace ModernSerialMonitor.ViewModels
         /// [履歴をクリア]ボタンコマンド
         /// </summary>
         public ReactiveCommand DeleteResultCommand { get; } = new();
+
+        /// <summary>
+        /// [履歴をコピー]ボタンコマンド
+        /// </summary>
+        public ReactiveCommand CopyResultCommand { get; } = new();
         #endregion
 
         /// <summary>
@@ -145,6 +151,7 @@ namespace ModernSerialMonitor.ViewModels
             SendCommand.Subscribe(_ => SendText());
             DisconnectCommand.Subscribe(_ => DisconnectSerialPort());
             DeleteResultCommand.Subscribe(_ => DeleteResult());
+            CopyResultCommand.Subscribe(_ => CopyResult());
 
             // 通知可能プロパティの結びつけ
             ReceiveTextProperty = SerialObject.ReceivedDataProperty;
@@ -200,6 +207,14 @@ namespace ModernSerialMonitor.ViewModels
         private void DeleteResult()
         {
             ReceiveTextProperty.Value = string.Empty;
+        }
+
+        /// <summary>
+        /// 履歴をコピー
+        /// </summary>
+        private void CopyResult()
+        {
+            Clipboard.SetData(DataFormats.Text, (Object)ReceiveTextProperty.Value);
         }
 
         #endregion

@@ -12,7 +12,7 @@
     Title="シリアルモニタ"
     Width="800"
     Height="450"
-    ui:ThemeManager.RequestedTheme="Dark"
+    ui:ThemeManager.RequestedTheme="{Binding AppThemeProperty.Value}"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Topmost="{Binding IsTopmostProperty.Value}"

@@ -113,12 +113,6 @@
                     DockPanel.Dock="Top"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="受信データ" />
-                <Button
-                    Margin="0,10,5,0"
-                    HorizontalAlignment="Right"
-                    Command="{Binding DeleteResultCommand}"
-                    Content="履歴をクリア"
-                    DockPanel.Dock="Bottom" />
                 <TextBox
                     AcceptsReturn="True"
                     DockPanel.Dock="Left"
@@ -127,17 +121,48 @@
                     VerticalScrollBarVisibility="Visible" />
             </DockPanel>
 
-            <!--  ステータスバー  -->
-            <StatusBar
-                Grid.Row="3"
-                Height="25"
-                VerticalAlignment="Center"
-                Background="{Binding StatusBarBackgroundProperty.Value, UpdateSourceTrigger=PropertyChanged}"
-                Foreground="White">
-                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                    <TextBlock Text="{Binding StatusBarMessageProperty.Value}" />
-                </StackPanel>
-            </StatusBar>
+            <!--  ステータスバー / 下部コマンドバー  -->
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  下部コマンドバー  -->
+                <ui:CommandBar Background="Transparent">
+                    <ui:AppBarButton Command="{Binding CopyResultCommand}" Label="受信履歴をコピー">
+                        <ui:AppBarButton.Icon>
+                            <ui:FontIcon Glyph="&#xE8C8;" />
+                        </ui:AppBarButton.Icon>
+                    </ui:AppBarButton>
+                    <ui:AppBarButton Label="受信履歴を保存" Visibility="Collapsed">
+                        <ui:AppBarButton.Icon>
+                            <ui:FontIcon Glyph="&#xE78C;" />
+                        </ui:AppBarButton.Icon>
+                    </ui:AppBarButton>
+                    <ui:AppBarSeparator />
+                    <ui:AppBarButton Command="{Binding DeleteResultCommand}" Label="受信履歴を削除">
+                        <ui:AppBarButton.Icon>
+                            <ui:FontIcon Glyph="&#xE74D;" />
+                        </ui:AppBarButton.Icon>
+                    </ui:AppBarButton>
+                </ui:CommandBar>
+
+                <!--  ステータスバー  -->
+                <StatusBar
+                    Grid.Row="1"
+                    Height="25"
+                    VerticalAlignment="Center"
+                    Background="{Binding StatusBarBackgroundProperty.Value, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="White">
+                    <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                        <TextBlock Text="{Binding StatusBarMessageProperty.Value}" />
+                    </StackPanel>
+                </StatusBar>
+            </Grid>
+
+
+
 
         </Grid>
     </DockPanel>
