@@ -67,6 +67,8 @@ namespace ModernSerialMonitor.ViewModels
 
             // テーマを適用
             AppThemeProperty.Value = GetAppTheme();
+
+            
         }
 
         

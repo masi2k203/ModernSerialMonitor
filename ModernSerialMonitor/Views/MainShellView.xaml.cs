@@ -47,6 +47,9 @@ namespace ModernSerialMonitor.Views
         {
             InitializeComponent();
 
+            // シングルトン試験ビルド
+            ModernWpf.MessageBox.Show("このビルドは「シングルトン試験ビルド」です。\n試験により一部の機能が欠落しています。");
+
         }
 
         private void NavView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
