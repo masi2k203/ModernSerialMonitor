@@ -1,14 +1,18 @@
 ﻿
-* release-1.1.0 CodeName:BlueModern1
+* release-1.1.1 CodeName:BlueModern1
 	# 新機能
 	- アプリケーションテーマ変更機能		=> 実装済
 	- 結果のワンクリックコピー機能		=> 実装済
 	- 「アプリ情報」画面の改良（中長期）	=> 未実装
-	- UIの微調整						=> 実装済
+	- UIの微調整						=> 次回に持ち越し
 	# 改善
 	- ページ遷移時のシリアル通信が置おかしくなる不具合解消 => release-1.0.1で対応済
 
- * v.Next CodeName:BlueModern2
+ * v.Next CodeName:SodaIce1
 	# 新機能
+	- UIのさらなるModern Windows化
 	- 結果をテキストファイルで保存
 	- 2台同時シリアル通信機能
+
+ * v.Future
+	# WinUI3.0 (Project Reunion)にて再構築
