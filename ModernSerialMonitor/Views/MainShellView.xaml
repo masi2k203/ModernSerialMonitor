@@ -21,62 +21,24 @@
         <vm:MainShellViewModel />
     </Window.DataContext>
 
-    <DockPanel LastChildFill="True">
-        <!--  カスタムタイトルバー  -->
-        <Grid x:Name="AppTitleBar" DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <!--  メニュー(ウィンドウ判定無し)  -->
-            <Menu
-                Grid.Column="0"
-                HorizontalAlignment="Left"
-                WindowChrome.IsHitTestVisibleInChrome="True">
-                <MenuItem Header="ファイル(_F)">
-                    <MenuItem Header="終了(_X)">
-                        <i:Interaction.Behaviors>
-                            <bh:WindowCloseBehavior />
-                        </i:Interaction.Behaviors>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="表示(_V)">
-                    <MenuItem
-                        Header="最上面に固定する"
-                        IsCheckable="True"
-                        IsChecked="{Binding IsTopmostProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
-                </MenuItem>
-                <MenuItem Header="ヘルプ(_H)">
-                    <MenuItem Command="{Binding ShowVersionDialogCommand}" Header="バージョン情報(_A)" />
-                    <Separator />
-                    <MenuItem Command="{Binding ShowProducerTwitterCommand}" Header="製作者Twitter(_T)" />
-                </MenuItem>
-            </Menu>
-            <!--  タイトル  -->
-            <TextBlock
-                Grid.Column="1"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="シリアルモニタ" />
-        </Grid>
-
+    <Grid>
         <!--  ナビゲーションビューおよびフレーム  -->
         <Grid DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <!--  ナビゲーションビュー  -->
+
+            <!--#region NavigationView-->
             <ui:NavigationView
                 x:Name="NavView"
                 IsBackButtonVisible="Collapsed"
                 IsPaneToggleButtonVisible="True"
                 IsSettingsVisible="False"
-                IsTitleBarAutoPaddingEnabled="True"
-                PaneDisplayMode="LeftCompact"
+                IsTitleBarAutoPaddingEnabled="False"
+                PaneDisplayMode="Left"
                 SelectionChanged="NavView_SelectionChanged">
+                <!--#region MenuItems-->
                 <ui:NavigationView.MenuItems>
                     <ui:NavigationViewItem
                         Content="シリアルモニタ"
@@ -96,6 +58,9 @@
                         </ui:NavigationViewItem.Icon>
                     </ui:NavigationViewItem>
                 </ui:NavigationView.MenuItems>
+                <!--#endregion-->
+
+                <!--#region FooterMunuItem-->
                 <ui:NavigationView.FooterMenuItems>
                     <ui:NavigationViewItem Content="アプリ情報" Tag="{x:Static local:NavIcon.AppInfo}">
                         <ui:NavigationViewItem.Icon>
@@ -107,14 +72,70 @@
                         Icon="Setting"
                         Tag="{x:Static local:NavIcon.Setting}" />
                 </ui:NavigationView.FooterMenuItems>
+                <!--#endregion-->
 
+                <!--#region フレーム-->
                 <Grid Margin="0,0,0,0">
-                    <ui:Frame x:Name="ContentFrame" Padding="0,0,0,0" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <!--#region カスタムタイトルバー-->
+                    <Grid x:Name="AppTitleBar">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <!--  メニュー(ウィンドウ判定無し)  -->
+                        <Menu
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            WindowChrome.IsHitTestVisibleInChrome="True">
+                            <MenuItem Header="ファイル(_F)">
+                                <MenuItem Header="終了(_X)">
+                                    <i:Interaction.Behaviors>
+                                        <bh:WindowCloseBehavior />
+                                    </i:Interaction.Behaviors>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="表示(_V)">
+                                <MenuItem
+                                    Header="最上面に固定する"
+                                    IsCheckable="True"
+                                    IsChecked="{Binding IsTopmostProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
+                            </MenuItem>
+                            <MenuItem Header="ヘルプ(_H)">
+                                <MenuItem Command="{Binding ShowVersionDialogCommand}" Header="バージョン情報(_A)" />
+                                <Separator />
+                                <MenuItem Command="{Binding ShowProducerTwitterCommand}" Header="製作者Twitter(_T)" />
+                            </MenuItem>
+                        </Menu>
+                        <!--  タイトル  -->
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="シリアルモニタ" />
+                    </Grid>
+                    <!--#endregion-->
+
+                    <!--#region フレーム-->
+                    <ui:Frame
+                        x:Name="ContentFrame"
+                        Grid.Row="1"
+                        Padding="0,0,0,0" />
+                    <!--#endregion-->
+
                 </Grid>
+                <!--#endregion-->
+
             </ui:NavigationView>
+            <!--#endregion-->
 
         </Grid>
+    </Grid>
 
-
-    </DockPanel>
 </Window>

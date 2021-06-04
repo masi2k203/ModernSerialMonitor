@@ -214,7 +214,11 @@ namespace ModernSerialMonitor.ViewModels
         /// </summary>
         private void CopyResult()
         {
-            Clipboard.SetData(DataFormats.Text, (Object)ReceiveTextProperty.Value);
+            if (ReceiveTextProperty.Value is not null)
+            {
+                Clipboard.SetData(DataFormats.Text, (Object)ReceiveTextProperty.Value);
+            }
+            
         }
 
         #endregion
