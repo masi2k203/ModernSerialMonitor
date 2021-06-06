@@ -10,7 +10,8 @@
 
  * v.Next CodeName:SodaIce1
 	# 新機能
-	- UIのさらなるModern Windows化
+	- UIのさらなるModern化
+	- どうやらテーマの動的変更がおかしそうなので改良
 	- 結果をテキストファイルで保存
 	- 2台同時シリアル通信機能
 

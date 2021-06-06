@@ -14,34 +14,42 @@
         <vm:AppInfoPageViewModel />
     </Page.DataContext>
 
-    <DockPanel Margin="10,3" LastChildFill="True">
-        <!--  ヘッダー  -->
-        <TextBlock
-            DockPanel.Dock="Top"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="アプリ情報" />
-        <!--  設定部分  -->
-        <ScrollViewer Margin="0,10" DockPanel.Dock="Bottom">
-            <StackPanel Orientation="Vertical">
-                <!--  バージョン  -->
-                <TextBlock
-                    Margin="0,10"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="バージョン情報" />
-                <TextBlock
-                    Margin="0,10"
-                    Style="{StaticResource BodyTextBlockStyle}"
-                    Text="{Binding VersionInfoProperty.Value}" />
-                <!--  ライセンス表示  -->
-                <TextBlock
-                    Margin="0,10"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="ライセンス表示" />
-                <TextBlock
-                    Style="{StaticResource BodyTextBlockStyle}"
-                    Text="{Binding LicenseTextProperty.Value}"
-                    TextWrapping="Wrap" />
-            </StackPanel>
-        </ScrollViewer>
-    </DockPanel>
+    <ScrollViewer Margin="30,20,0,0">
+        <StackPanel>
+            <!--#region ヘッダー-->
+            <TextBlock
+                FontWeight="Bold"
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                Text="情報" />
+            <!--#endregion-->
+
+            <!--#region 情報-->
+            <!--  バージョン  -->
+            <TextBlock
+                Margin="0,30,0,10"
+                FontWeight="Bold"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="バージョン情報" />
+            <TextBlock
+                Margin="0,10,0,30"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{Binding VersionInfoProperty.Value}" />
+            <!--  ライセンス表示  -->
+            <TextBlock
+                Margin="0,10"
+                FontWeight="Bold"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="ライセンス表示" />
+            <TextBox
+                Height="500"
+                MaxWidth="700"
+                Margin="0,10,20,0"
+                HorizontalAlignment="Left"
+                HorizontalScrollBarVisibility="Auto"
+                IsReadOnly="True"
+                Text="{Binding LicenseTextProperty.Value}"
+                VerticalScrollBarVisibility="Visible" />
+            <!--#endregion-->
+        </StackPanel>
+    </ScrollViewer>
 </Page>

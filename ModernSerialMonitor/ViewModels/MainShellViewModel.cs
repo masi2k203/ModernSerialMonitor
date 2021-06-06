@@ -129,6 +129,9 @@ namespace ModernSerialMonitor.ViewModels
         private void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             AppThemeProperty.Value = GetAppTheme();
+            System.Diagnostics.Debug.WriteLine("IsAuto : " + Properties.Settings.Default.IsThemeAutoSet);
+            System.Diagnostics.Debug.WriteLine("IsDrak : " + Properties.Settings.Default.IsDarkTheme);
+            System.Diagnostics.Debug.WriteLine("IsLight : " + Properties.Settings.Default.IsLightTheme);
             Properties.Settings.Default.Save();
         }
 

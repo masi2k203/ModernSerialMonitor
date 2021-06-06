@@ -12,7 +12,7 @@
     Title="シリアルモニタ"
     Width="800"
     Height="450"
-    ui:ThemeManager.RequestedTheme="{Binding AppThemeProperty.Value}"
+    ui:ThemeManager.RequestedTheme="Dark"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     Topmost="{Binding IsTopmostProperty.Value}"
@@ -23,7 +23,7 @@
 
     <Grid>
         <!--  ナビゲーションビューおよびフレーム  -->
-        <Grid DockPanel.Dock="Bottom">
+        <Grid Background="{DynamicResource AppBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
@@ -38,6 +38,7 @@
                 IsTitleBarAutoPaddingEnabled="False"
                 PaneDisplayMode="Left"
                 SelectionChanged="NavView_SelectionChanged">
+
                 <!--#region MenuItems-->
                 <ui:NavigationView.MenuItems>
                     <ui:NavigationViewItem
@@ -49,7 +50,7 @@
                         </ui:NavigationViewItem.Icon>
                     </ui:NavigationViewItem>
                     <ui:NavigationViewItem
-                        Content="高機能シリアルモニタ"
+                        Content="シリアルプロッタ"
                         IsEnabled="False"
                         Tag="{x:Static local:NavIcon.AdvancedMonitor}"
                         Visibility="Hidden">

@@ -5,8 +5,7 @@
     <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <Deterministic>false</Deterministic>
-    <FileVersion>1.0.0.*</FileVersion>
-    <InformationalVersion>1.Dev.SodaIce.1</InformationalVersion>
+    <InformationalVersion>v.Next (SodaIce-1)</InformationalVersion>
     <NoWarn>CS7035;7035</NoWarn>
   </PropertyGroup>
 

@@ -17,8 +17,11 @@
     </Page.DataContext>
 
     <DockPanel LastChildFill="True">
-        <!--  コマンドバー  -->
-        <ui:CommandBar Background="Transparent" DockPanel.Dock="Top">
+        <!--#region コマンドバー-->
+        <ui:CommandBar
+            HorizontalContentAlignment="Left"
+            Background="Transparent"
+            DockPanel.Dock="Top">
             <ui:CommandBar.Content>
                 <StackPanel Width="Auto" Orientation="Horizontal">
                     <TextBlock
@@ -75,6 +78,10 @@
                 IsEnabled="{Binding IsDisconnectButtonActive.Value}"
                 Label="切断" />
         </ui:CommandBar>
+
+
+        <!--#endregion-->
+
         <!--  シリアルモニタ部分  -->
         <Grid DockPanel.Dock="Bottom">
             <Grid.RowDefinitions>

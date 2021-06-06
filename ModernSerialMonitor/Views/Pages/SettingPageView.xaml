@@ -14,33 +14,40 @@
         <vm:SettingPageViewModel />
     </Page.DataContext>
 
-    <DockPanel Margin="10,3" LastChildFill="True">
-        <!--  ヘッダー  -->
-        <TextBlock
-            DockPanel.Dock="Top"
-            Style="{StaticResource TitleTextBlockStyle}"
-            Text="設定" />
-        <!--  設定部分  -->
-        <ScrollViewer Margin="0,10" DockPanel.Dock="Bottom">
-            <StackPanel Orientation="Vertical">
-                <!--  テーマ設定  -->
-                <GroupBox Margin="1" Header="テーマ設定">
-                    <StackPanel>
-                        <RadioButton
-                            Content="ライトテーマ"
-                            GroupName="ThemeSetter"
-                            IsChecked="{Binding IsLightThemeProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
-                        <RadioButton
-                            Content="ダークテーマ"
-                            GroupName="ThemeSetter"
-                            IsChecked="{Binding IsDarkThemeProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
-                        <RadioButton
-                            Content="システムに追従する"
-                            GroupName="ThemeSetter"
-                            IsChecked="{Binding IsThemeAutoSetProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </GroupBox>
+    <ScrollViewer Margin="30,20,0,0">
+        <StackPanel>
+            <!--#region ヘッダー-->
+            <TextBlock
+                FontWeight="Bold"
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                Text="設定" />
+            <!--#endregion-->
+
+            <!--#region 情報-->
+            <!--  テーマ設定  -->
+            <TextBlock
+                Margin="0,30,0,10"
+                FontWeight="Bold"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="テーマ設定" />
+            <TextBlock Foreground="Red" Text="v.Next : テーマ設定は現在使用できません。" />
+            <StackPanel Margin="0,10,0,10" IsEnabled="False">
+                <RadioButton
+                    Content="ライトテーマ"
+                    GroupName="ThemeSetter"
+                    IsChecked="{Binding IsLightThemeProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
+                <RadioButton
+                    Content="ダークテーマ"
+                    GroupName="ThemeSetter"
+                    IsChecked="{Binding IsDarkThemeProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
+                <RadioButton
+                    Content="システムに追従する"
+                    GroupName="ThemeSetter"
+                    IsChecked="{Binding IsThemeAutoSetProperty.Value, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
-        </ScrollViewer>
-    </DockPanel>
+            <!--#endregion-->
+        </StackPanel>
+    </ScrollViewer>
+
+
 </Page>

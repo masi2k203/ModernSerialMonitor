@@ -40,7 +40,6 @@ namespace ModernSerialMonitor.ViewModels
             IsLightThemeProperty.Subscribe(x => Properties.Settings.Default.IsLightTheme = x);
             IsDarkThemeProperty.Subscribe(x => Properties.Settings.Default.IsDarkTheme = x);
             IsThemeAutoSetProperty.Subscribe(x => Properties.Settings.Default.IsThemeAutoSet = x);
-
         }
     }
 }

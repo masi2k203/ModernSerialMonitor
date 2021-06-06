@@ -7,7 +7,21 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemeResources />
+                <ui:ThemeResources>
+                    <ui:ThemeResources.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light" ui:ThemeDictionary.Key="Light">
+                            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FFF1F1F1" />
+                            <SolidColorBrush x:Key="AppContentBackgroundBrush" Color="{StaticResource SystemAltHighColor}" />
+                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#E6E6E6" />
+                        </ResourceDictionary>
+
+                        <ResourceDictionary x:Key="Dark" ui:ThemeDictionary.Key="Dark">
+                            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FF2B2B2B" />
+                            <SolidColorBrush x:Key="AppContentBackgroundBrush" Color="#FF282828" />
+                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#3B3B3B" />
+                        </ResourceDictionary>
+                    </ui:ThemeResources.ThemeDictionaries>
+                </ui:ThemeResources>
                 <ui:XamlControlsResources />
             </ResourceDictionary.MergedDictionaries>
 
